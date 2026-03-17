@@ -22,3 +22,5 @@ runs:
         --exclude-drafts \
         --exclude-pre-releases)
         echo "version=$LATEST_RELEASE" >> "$GITHUB_OUTPUTS"
+      env:
+        GH_TOKEN: ${{ github.token }}
