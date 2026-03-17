@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: 2026 Alec Delaney
+# SPDX-License-Identifier: MIT
+
+name: Latest CircuitPython version
+description: 'Determine the latest CircuitPython version'
+outputs:
+  version:
+    description: The latest version of CircuitPython based on inputs
+    value: ${{ steps.gh-cmd.outputs.version }}
+runs:
+  using: "composite"
+  steps:
+    - name: Create gh command
+      id: gh-cmd
+      shell: bash
+      run: |
+        LATEST_RELEASE=$(gh release list \
+        --json tagName \
+        -q '.[] | select(.tagName | startswith("v") | not) | .tagName' \
+        -R adafruit/circuitpython \
+        -L 1 \
+        --exclude-drafts \
+        --exclude-pre-releases)
+        echo "version=$LATEST_RELEASE" >> "$GITHUB_OUTPUTS"
