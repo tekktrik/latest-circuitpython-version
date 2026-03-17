@@ -6,7 +6,7 @@ name: Test action
 on: [pull_request, push]
 
 jobs:
-  test:
+  test-action:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
