@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2026 Alec Delaney
+# SPDX-License-Identifier: MIT
+
+name: Test action
+
+on: [pull_request, push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+    - name: Test workflow
+      id: workflow-test
+      uses: ./
+    - name: Announce result
+      run: |
+        echo "Latest CircuitPython version: ${{ steps.workflow-test.outputs.version }}"
